@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <title>Rock, Paper, Scissors</title>
+</head>
+
+<body class="m-8 bg-gray-800">
+    <div class="container">
+        <h1 class="mt-4 text-pink-700 text-center">Rock, Paper, Scissors</h1>
+        <hr class="border border-red-700 mt-2 bg-lime-400 mx-auto" style="width: 50%;">
+
+
+        <p id="player_choice" class ="p-8 text-center">&nbsp;</p>
+        <p id="computer_choice" class ="p-8 text-center">&nbsp;</p>
+        <p class="text-danger p-8 text-center" id="round_result">&nbsp;</p>
+        <hr class="border border-red-700 mt-2 bg-lime-400 mx-auto" style="width: 50%;">
+
+        <p class="text-purple-700 text-center">Choose rock, paper, or scissors!</p>
+        <br>
+
+        <button class="btn btn-outline-secondary text-center cursor-pointer" onclick="choose(0)" p-8>Rock</button>
+        <button class="btn btn-outline-danger text-center cursor-pointer" onclick="choose(1)" p-8>Paper</button>
+        <button class="btn btn-outline-success text-center cursor-pointer" onclick="choose(2)" p-8>Scissors</button>
+    </div>
+</body>
+<script>
+    function choose(x) {
+        fetch("/play?c=" + x)
+            .then(response => response.json())
+            .then(data => {
+                // console.log(data);
+                if (x == 0) {
+                    document.getElementById("player_choice").innerHTML = "<span style='color: #4299e1; font-size: 0.875rem; cursor: pointer; margin-left: 0.75rem;'>Player chose ROCK</span>";
+                } else if (x == 1) {
+                    document.getElementById("player_choice").innerHTML = "<span style='color: #4299e1; font-size: 0.875rem; cursor: pointer; margin-left: 0.75rem;'>Player chose PAPER</span>";
+                } else {
+                    document.getElementById("player_choice").innerHTML = "<span style='color: #4299e1; font-size: 0.875rem; cursor: pointer; margin-left: 0.75rem;'>Player chose SCISSORS</span>";
+                }
+
+                document.getElementById("computer_choice").innerHTML = data.computer_choice;
+                document.getElementById("round_result").innerHTML = data.round_result;
+            })
+    }
+</script>
+
+
+
+
+</html>
